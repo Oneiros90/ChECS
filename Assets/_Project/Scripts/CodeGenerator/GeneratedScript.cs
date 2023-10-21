@@ -41,7 +41,8 @@ namespace CHECS
 
         public void Delete()
         {
-            AssetDatabase.DeleteAsset(FullPath);
+            var projectDir = Directory.GetParent(Application.dataPath)!.FullName;
+            File.Delete(Path.Combine(projectDir, FullPath));
         }
 
         public override string ToString()
