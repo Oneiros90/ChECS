@@ -27,23 +27,23 @@ namespace CHECS
             state = world.ResolveSystemStateRef(handle);
         }
         
-        public static void GetPieceAtPosition(in PositionData positionData, out Entity result)
+        public static void GetPieceAtPosition(in PositionData positionData, out Entity piece)
         {
             GetDefault(out var system, out var state);
-            system.GetPieceAtPosition(ref state, in positionData, out result);
+            system.GetPieceAtPosition(ref state, in positionData, out piece);
         }
         
-        public static void GetPieceAtPosition(in World world, in PositionData positionData, out Entity result)
+        public static void GetPieceAtPosition(in World world, in PositionData positionData, out Entity piece)
         {
             Get(world, out var system, out var state);
-            system.GetPieceAtPosition(ref state, in positionData, out result);
+            system.GetPieceAtPosition(ref state, in positionData, out piece);
         }
         
         [BurstCompile]
-        public static void GetPieceAtPosition(in WorldUnmanaged world, in PositionData positionData, out Entity result)
+        public static void GetPieceAtPosition(in WorldUnmanaged world, in PositionData positionData, out Entity piece)
         {
             Get(world, out var system, out var state);
-            system.GetPieceAtPosition(ref state, in positionData, out result);
+            system.GetPieceAtPosition(ref state, in positionData, out piece);
         }
 
     }

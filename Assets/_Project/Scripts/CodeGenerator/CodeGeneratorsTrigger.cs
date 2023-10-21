@@ -9,8 +9,8 @@ namespace CHECS
         [InitializeOnLoadMethod]
         private static void OnInitialized()
         {
-            AssemblyReloadEvents.afterAssemblyReload -= GenerateScripts;
-            AssemblyReloadEvents.afterAssemblyReload += GenerateScripts;
+            AssemblyReloadEvents.beforeAssemblyReload -= GenerateScripts;
+            AssemblyReloadEvents.beforeAssemblyReload += GenerateScripts;
         }
 
         private static void GenerateScripts()
@@ -19,6 +19,8 @@ namespace CHECS
                                           .Select(t => (CodeGenerator)Activator.CreateInstance(t));
             CodeGenerator.GenerateScripts(codeGenerators.ToArray());
             AssetDatabase.Refresh();
+            AssemblyReloadEvents.afterAssemblyReload -= GenerateScripts;
+            AssemblyReloadEvents.afterAssemblyReload += GenerateScripts;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace CHECS
     public abstract class CodeGenerator
     {
         protected abstract string GeneratedScriptsFolder { get; }
-        protected abstract IEnumerable<GeneratedScript> GetScriptsToGenerate();
+        protected abstract IEnumerable<GeneratedScript> GetScriptsToGenerate(); 
         
         public static void GenerateScripts(params CodeGenerator[] codeGenerators)
         {

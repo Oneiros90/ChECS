@@ -2,7 +2,8 @@
 {
     public enum PieceMovementType
     {
-        TakeOrMove,
+        MoveOrTake,
+        MoveOnly,
         TakeOnly
     }
 }

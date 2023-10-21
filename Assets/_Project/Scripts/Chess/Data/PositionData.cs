@@ -84,5 +84,10 @@ namespace CHECS
             hash = hash * prime + Row.GetHashCode();
             return hash;
         }
+
+        public override string ToString()
+        {
+            return $"[{Column}, {Row}]";
+        }
     }
 }

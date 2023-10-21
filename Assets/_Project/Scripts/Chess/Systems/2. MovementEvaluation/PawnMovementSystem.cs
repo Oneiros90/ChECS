@@ -25,12 +25,12 @@ namespace CHECS
                 var forward = (sbyte)(color.ValueRO.Color == PieceColor.White ? 1 : -1);
 
                 var oneStepForward = position.ValueRO.ShiftRow(forward);
-                validMoves.Add(oneStepForward);
+                validMoves.Add(new ValidMoveBufferElement(oneStepForward, PieceMovementType.MoveOnly));
 
                 if (position.ValueRO.Row == 1)
                 {
                     var twoStepsForward = position.ValueRO.ShiftRow((sbyte)(forward + forward));
-                    validMoves.Add(twoStepsForward);
+                    validMoves.Add(new ValidMoveBufferElement(twoStepsForward, PieceMovementType.MoveOnly));
                 }
 
                 var takeDiagonal1 = position.ValueRO.Shift(-1, forward);

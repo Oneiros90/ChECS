@@ -2,6 +2,6 @@
 
 namespace CHECS
 {
-    [UpdateInGroup(typeof(ChessUpdateGroup))]
+    [UpdateInGroup(typeof(ChessUpdateSystemGroup))]
     public partial class MovementEvaluationPreparationGroup : ComponentSystemGroup { }
 }

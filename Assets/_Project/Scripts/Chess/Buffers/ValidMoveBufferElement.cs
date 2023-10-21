@@ -8,14 +8,14 @@ namespace CHECS
         public readonly PieceMovementType MovementType;
 
         public ValidMoveBufferElement(sbyte column, sbyte row,
-            PieceMovementType movementType = PieceMovementType.TakeOrMove)
+            PieceMovementType movementType = PieceMovementType.MoveOrTake)
         {
             Destination = new PositionData(column, row);
             MovementType = movementType;
         }
 
         public ValidMoveBufferElement(PositionData destination,
-            PieceMovementType movementType = PieceMovementType.TakeOrMove)
+            PieceMovementType movementType = PieceMovementType.MoveOrTake)
         {
             Destination = destination;
             MovementType = movementType;
@@ -29,6 +29,22 @@ namespace CHECS
         public static implicit operator PositionData(ValidMoveBufferElement move)
         {
             return move.Destination;
+        }
+    }
+
+    public static class ValidMoveBufferExtensions
+    {
+        public static bool Contains(this DynamicBuffer<ValidMoveBufferElement> moves, in PositionData positionData)
+        {
+            foreach (var move in moves)
+            {
+                if (move.Destination.Equals(positionData))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
