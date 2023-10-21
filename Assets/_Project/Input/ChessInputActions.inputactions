@@ -1,0 +1,34 @@
+{
+    "name": "ChessInputs",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "b7f6be1c-6d3a-4e3d-b22c-cfa0b96b34c9",
+            "actions": [
+                {
+                    "name": "Selection",
+                    "type": "Button",
+                    "id": "b20482e8-5f49-4621-9d66-f01a2b92288f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "134a66f7-7795-442e-87c4-5c776a3b59fe",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

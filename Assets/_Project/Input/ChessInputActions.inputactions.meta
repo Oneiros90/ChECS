@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a1c2f53f8c1442e498dedd903c3d0739
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 8404be70184654265930450def6a9037, type: 3}
+  generateWrapperCode: 1
+  wrapperCodePath: Assets/_Project/Scripts/Chess/Input/ChessInputActions.cs
+  wrapperClassName: 
+  wrapperCodeNamespace: CHECS
