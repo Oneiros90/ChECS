@@ -38,14 +38,14 @@ namespace CHECS
     }}
 }}";
 
-        public override string GeneratedScriptsFolder => GEN_FOLDER;
+        protected override string GeneratedScriptsFolder => GEN_FOLDER;
 
-        public override IEnumerable<GeneratedScript> GenerateScripts()
+        protected override IEnumerable<GeneratedScript> GetScriptsToGenerate()
         {
-            return TypeCache.GetTypesWithAttribute<OneFrameOnlyAttribute>().Select(GenerateScript);
+            return TypeCache.GetTypesWithAttribute<OneFrameOnlyAttribute>().Select(GetScriptToGenerate);
         }
 
-        private static GeneratedScript GenerateScript(Type type)
+        private static GeneratedScript GetScriptToGenerate(Type type)
         {
             var scriptName = $"{type.Name}CleanUpSystem";
             var content = string.Format(TEMPLATE, type.Name);
