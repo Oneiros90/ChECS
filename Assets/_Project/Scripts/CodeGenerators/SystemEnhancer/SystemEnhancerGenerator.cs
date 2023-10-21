@@ -13,6 +13,9 @@ namespace CHECS
         private const string GEN_FOLDER = "Assets/_Project/Scripts/Generated";
         private static readonly Type _systemStateRefType = typeof(SystemState).MakeByRefType();
 
+        private static readonly HashSet<string> _methodsToSkip =
+            new() { "OnCreate", "OnUpdate", "OnDestroy", "OnCreateForCompiler" };
+
         private const string CLASS_TEMPLATE = @"using Unity.Burst;
 using Unity.Entities;
 
@@ -77,10 +80,10 @@ namespace {1}
                                    .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
                                    .Where(p => p.GetParameters().Any() &&
                                        p.GetParameters()[0].ParameterType == _systemStateRefType)
-                                   .Where(p => p.Name != "OnCreateForCompiler"))
+                                   .Where(p => !_methodsToSkip.Contains(p.Name)))
             {
-                var paramsDeclaration = string.Join(", ", GetParameters(method, true));
-                var paramsNames = string.Join(", ", GetParameters(method, false));
+                var paramsDeclaration = GetParametersSignature(method, true);
+                var paramsNames = GetParametersSignature(method, false);
                 var methodString = string.Format(METHOD_TEMPLATE, method.Name, paramsDeclaration, paramsNames);
                 methodsString.Append(methodString);
             }
@@ -89,16 +92,22 @@ namespace {1}
             return new GeneratedScript(GEN_FOLDER, scriptName, content);
         }
 
-        private static IEnumerable<string> GetParameters(MethodInfo method, bool withType)
+        private static string GetParametersSignature(MethodInfo method, bool withType)
         {
-            return method.GetParameters().Where(p => p.ParameterType != _systemStateRefType)
-                         .Select(p => ToString(p, withType));
+            var parameters = method.GetParameters().Where(p => p.ParameterType != _systemStateRefType)
+                                   .Select(p => GetParameterSignature(p, withType)).ToArray();
+            return parameters.Length > 0 ? string.Join(", ", parameters) : string.Empty;
         }
 
-        private static string ToString(ParameterInfo parameter, bool withType)
+        private static string GetParameterSignature(ParameterInfo parameter, bool withType)
         {
-            return $"{(parameter.IsIn ? "in " : "")}{(parameter.IsOut ? "out " : "")}" +
-                $"{(withType ? $"{GetTypeName(parameter)} " : "")}{parameter.Name}";
+            return $"{OptionalToken("in", parameter.IsIn)}{OptionalToken("out", parameter.IsOut)}" +
+                $"{OptionalToken(GetTypeName(parameter), withType)}{parameter.Name}";
+
+            static string OptionalToken(string name, bool check)
+            {
+                return check ? $"{name} " : string.Empty;
+            }
         }
 
         private static string GetTypeName(ParameterInfo parameter)
