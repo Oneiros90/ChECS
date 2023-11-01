@@ -5,6 +5,7 @@ using Unity.Entities;
 
 namespace CHECS
 {
+    [BurstCompile]
     public struct PositionData : IComponentData, IEquatable<PositionData>
     {
         public readonly sbyte Column;

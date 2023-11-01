@@ -27,7 +27,7 @@ namespace CHECS
                 var oneStepForward = position.ValueRO.ShiftRow(forward);
                 validMoves.Add(new ValidMoveBufferElement(oneStepForward, PieceMovementType.MoveOnly));
 
-                if (position.ValueRO.Row == 1)
+                if (position.ValueRO.Row == (sbyte)(color.ValueRO.Color == PieceColor.White ? 1 : 6))
                 {
                     var twoStepsForward = position.ValueRO.ShiftRow((sbyte)(forward + forward));
                     validMoves.Add(new ValidMoveBufferElement(twoStepsForward, PieceMovementType.MoveOnly));
