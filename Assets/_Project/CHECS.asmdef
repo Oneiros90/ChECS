@@ -1,0 +1,23 @@
+{
+    "name": "CHECS",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d9d7ba8ff5af73b4d9f256c46beed6db",
+        "GUID:672cf57579501c54fb52ceda94ec552e",
+        "GUID:ec4b9e7f4a800f84e83e90d74d37cdf1",
+        "GUID:2665a8d13d1b3f18800f46e256720795",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:734d92eba21c94caba915361bd5ac177",
+        "GUID:8819f35a0fc84499b990e90a4ca1911f",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
