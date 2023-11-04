@@ -1,6 +1,4 @@
-﻿using System.IO;
-using UnityEditor;
-using UnityEditor.Compilation;
+﻿using UnityEditor;
 
 namespace Language.Generators
 {
@@ -9,14 +7,13 @@ namespace Language.Generators
         [InitializeOnLoadMethod]
         private static void OnInitialized()
         {
-            CompilationPipeline.assemblyCompilationFinished -= OnAssemblyCompilationFinished;
-            CompilationPipeline.assemblyCompilationFinished += OnAssemblyCompilationFinished;
+            AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
+            AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
         }
 
-        private static void OnAssemblyCompilationFinished(string assemblyPath, CompilerMessage[] messages)
+        private static void OnAfterAssemblyReload()
         {
-            var assemblyName = Path.GetFileNameWithoutExtension(assemblyPath);
-            CodeGenerator.GenerateScripts(assemblyName);
+            CodeGenerator.GenerateScripts();
         }
     }
 }

@@ -37,17 +37,17 @@ namespace CHECS
     }}
 }}";
 
-        protected override IEnumerable<GeneratedScript> GetScriptsToGenerate(string assemblyName)
+        protected override IEnumerable<GeneratedScript> GetScriptsToGenerate()
         {
-            return TypeCache.GetTypesWithAttribute<OneFrameOnlyAttribute>()
-                            .Select(type => GetScriptToGenerate(assemblyName, type));
+            return TypeCache.GetTypesWithAttribute<OneFrameOnlyAttribute>().Select(GetScriptToGenerate);
         }
 
-        private static GeneratedScript GetScriptToGenerate(string assemblyName, Type type)
+        private static GeneratedScript GetScriptToGenerate(Type type)
         {
+            var generatedFolder = GetGeneratedFolderForType(type);
             var scriptName = $"{type.Name}CleanUpSystem";
             var content = string.Format(TEMPLATE, type.Name);
-            return new GeneratedScript(assemblyName, scriptName, content);
+            return new GeneratedScript(generatedFolder, scriptName, content);
         }
     }
 }

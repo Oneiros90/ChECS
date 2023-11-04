@@ -72,14 +72,15 @@ namespace {1}
         }}
 ";
 
-        protected override IEnumerable<GeneratedScript> GetScriptsToGenerate(string assemblyPath)
+        protected override IEnumerable<GeneratedScript> GetScriptsToGenerate()
         {
-            return TypeCache.GetTypesWithAttribute<EnhanceSystemAttribute>()
-                            .Select(type => GetScriptToGenerate(assemblyPath, type));
+            return TypeCache.GetTypesWithAttribute<EnhanceSystemAttribute>().Select(GetScriptToGenerate);
         }
 
-        private static GeneratedScript GetScriptToGenerate(string assemblyPath, Type type)
+        private static GeneratedScript GetScriptToGenerate(Type type)
         {
+            var generatedFolder = GetGeneratedFolderForType(type);
+
             var scriptName = $"{type.Name}Enhance";
             var methodsString = new StringBuilder();
             foreach (var method in type
@@ -95,7 +96,7 @@ namespace {1}
             }
 
             var content = string.Format(CLASS_TEMPLATE, type.Name, type.Namespace, methodsString);
-            return new GeneratedScript(assemblyPath, scriptName, content);
+            return new GeneratedScript(generatedFolder, scriptName, content);
         }
 
         private static string GetParametersSignature(MethodInfo method, bool withType)
